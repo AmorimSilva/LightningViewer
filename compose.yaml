@@ -1,0 +1,64 @@
+name: lightning-viewer
+
+services:
+  database:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-lightning_viewer}
+      POSTGRES_USER: ${POSTGRES_USER:-lightning}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD no arquivo .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - backend
+
+  web:
+    image: lightning-viewer:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    init: true
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: "true"
+      DOTNET_EnableDiagnostics: "0"
+      HttpsRedirection__Enabled: "false"
+      ConnectionStrings__DefaultConnection: >-
+        Host=database;Port=5432;Database=${POSTGRES_DB:-lightning_viewer};Username=${POSTGRES_USER:-lightning};Password=${POSTGRES_PASSWORD};Include Error Detail=false
+      EumetSat__ConsumerKey: ${EUMETSAT_CONSUMER_KEY:?Defina EUMETSAT_CONSUMER_KEY no arquivo .env}
+      EumetSat__ConsumerSecret: ${EUMETSAT_CONSUMER_SECRET:?Defina EUMETSAT_CONSUMER_SECRET no arquivo .env}
+      EumetSat__RetentionHours: ${EUMETSAT_RETENTION_HOURS:-48}
+      Seed__UnidadesCsvPath: /app/data/unidades.csv
+    ports:
+      - "127.0.0.1:2080:8080"
+    volumes:
+      - ./data:/app/data:ro
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - backend
+
+volumes:
+  postgres_data:
+
+networks:
+  backend:
+    driver: bridge
