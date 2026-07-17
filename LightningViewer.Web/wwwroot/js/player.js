@@ -16,6 +16,7 @@ const player = {
     radius:       200,
     lastFetch:    null,
     loadingFrame: false,
+    isLiveMode:   false,
 };
 
 // Speed steps (multiplier → interval between frames in ms)
@@ -89,6 +90,7 @@ async function loadAndRenderFrame(index) {
     if (!player.unit || player.loadingFrame) return;
     if (index < 0 || index >= player.frames.length) return;
 
+    player.isLiveMode = false;
     player.loadingFrame = true;
     const meta = player.frames[index];
 
@@ -116,6 +118,8 @@ async function loadAndRenderFrame(index) {
 
 async function loadAndRenderComposite() {
     if (!player.unit) return;
+    
+    player.isLiveMode = true;
     try {
         const url = `/api/lightning/composite?unidadeId=${player.unit.id}&raio=${player.radius}`;
         const res = await fetch(url);
@@ -215,17 +219,20 @@ async function refreshLatestFrame() {
         const frames = await res.json();
         if (frames.length === 0) return;
 
-        // Check if there are new frames
-        const lastKnown = player.frames.length > 0
-            ? player.frames[player.frames.length - 1].frameTime
-            : null;
-        const lastNew   = frames[frames.length - 1].frameTime;
+        const oldFramesLength = player.frames.length;
+        const wasAtLastFrame = player.currentIndex === oldFramesLength - 1;
 
         player.frames = frames;
-        document.getElementById('timeline-slider').max   = frames.length - 1;
+        document.getElementById('timeline-slider').max = frames.length - 1;
 
-        // If there's a new frame and we're at the last frame, advance to it
-        if (lastNew !== lastKnown && player.currentIndex === player.frames.length - 2) {
+        // Se estiver no modo Ao Vivo (Visão Geral), recarrega o composite
+        if (player.isLiveMode) {
+            await loadAndRenderComposite();
+            player.currentIndex = frames.length - 1;
+            document.getElementById('timeline-slider').value = player.currentIndex;
+        } 
+        // Se estava pausado exatamente no último frame, avança para o frame mais recente
+        else if (wasAtLastFrame && frames.length > oldFramesLength) {
             player.currentIndex = frames.length - 1;
             await loadAndRenderFrame(player.currentIndex);
         }
