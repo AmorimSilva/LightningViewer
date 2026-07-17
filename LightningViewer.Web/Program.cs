@@ -43,8 +43,15 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var logger = scope.ServiceProvider
+        .GetRequiredService<ILoggerFactory>()
+        .CreateLogger("DataSeeder");
+
     await db.Database.MigrateAsync();
-    await DataSeeder.SeedUnidadesAsync(db);
+    await DataSeeder.SeedUnidadesAsync(
+        db,
+        app.Configuration["Seed:UnidadesCsvPath"],
+        logger);
 }
 
 if (!app.Environment.IsDevelopment())
@@ -53,10 +60,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+if (app.Configuration.GetValue("HttpsRedirection:Enabled", true))
+    app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
+
+app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
 
 app.MapControllerRoute(
     name: "default",
