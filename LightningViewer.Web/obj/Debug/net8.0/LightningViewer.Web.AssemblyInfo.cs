@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LightningViewer.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+154aeb2e9547630a4b416d1dcf4bb1740f24b5fd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24602515224fd2413256b519f0d1377bfa9cd537")]
 [assembly: System.Reflection.AssemblyProductAttribute("LightningViewer.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LightningViewer.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -112,4 +112,4 @@ D:\PLANB\LightningViewer\LightningViewer.Web\obj\Debug\net8.0\ref\LightningViewe
 D:\PLANB\LightningViewer\LightningViewer.Web\bin\Debug\net8.0\result.json
 D:\PLANB\LightningViewer\LightningViewer.Web\bin\Debug\net8.0\result_filtered.json
 D:\PLANB\LightningViewer\LightningViewer.Web\bin\Debug\net8.0\debug.json
-D:\PLANB\LightningViewer\LightningViewer.Web\bin\Debug\net8.0\dbg_composite.json
+D:\PLANB\LightningViewer\LightningViewer.Web\obj\Debug\net8.0\LightningViewer.Web.sourcelink.json
