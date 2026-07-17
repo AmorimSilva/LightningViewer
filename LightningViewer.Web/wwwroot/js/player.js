@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-play').addEventListener('click', togglePlay);
     document.getElementById('btn-prev').addEventListener('click', prevFrame);
     document.getElementById('btn-next').addEventListener('click', nextFrame);
+    const btnLive = document.getElementById('btn-live');
+    if (btnLive) btnLive.addEventListener('click', showLiveComposite);
     document.getElementById('btn-slower').addEventListener('click', decreaseSpeed);
     document.getElementById('btn-faster').addEventListener('click', increaseSpeed);
     document.getElementById('timeline-slider').addEventListener('input', onSliderInput);
@@ -127,6 +129,11 @@ async function loadAndRenderComposite() {
     } catch (err) {
         console.error('Failed to load composite:', err);
     }
+}
+
+async function showLiveComposite() {
+    pause();
+    await loadAndRenderComposite();
 }
 
 // ── Playback Controls ─────────────────────────────────────────────────────────

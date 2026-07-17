@@ -7,17 +7,16 @@
 <!-- Header -->
 <header class="app-header">
     <div class="header-brand">
-        <span class="header-icon">⚡</span>
-        <div>
-            <span class="header-title">Monitor de Raios MTG-LI</span>
-            <span class="header-subtitle">EUMETSAT · Tempo Real</span>
+        <div class="logo-container">
+            <img src="~/images/logo.png" alt="BlueOcean" class="header-logo" />
         </div>
+        <span class="header-title">Monitoramento de Raios</span>
     </div>
 
     <div class="header-status">
         <div class="status-item">
             <span class="status-label">Hora Local</span>
-            <span class="status-value mono" id="clock-local">--:--:--</span>
+            <span class="status-value mono" id="clock-local" style="color: white">--:--:--</span>
         </div>
 
         <div class="update-badge" id="update-badge">
@@ -28,7 +27,7 @@
 </header>
 
 <!-- Unit Selector Sidebar -->
-<aside class="sidebar glass">
+<aside class="sidebar">
     <div class="sidebar-section">
         <label class="field-label">Unidade Tomadora</label>
         <div class="select-wrapper">
@@ -45,12 +44,12 @@
 
 
     <div class="sidebar-section">
-        <label class="field-label">Legenda de Raios</label>
+        <label class="field-label">Raios de Alcance</label>
         <div class="legend">
-            <div class="legend-row"><span class="legend-dot" style="background:#ffe066"></span><span>30 km</span></div>
-            <div class="legend-row"><span class="legend-dot" style="background:#ffa040"></span><span>50 km</span></div>
-            <div class="legend-row"><span class="legend-dot" style="background:#ff6030"></span><span>100 km</span></div>
-            <div class="legend-row"><span class="legend-dot" style="background:#cc2040"></span><span>200 km</span></div>
+            <div class="legend-row"><span class="legend-line" style="border-bottom-color:#cc2040"></span><span>30 km</span></div>
+            <div class="legend-row"><span class="legend-line" style="border-bottom-color:#ff6030"></span><span>50 km</span></div>
+            <div class="legend-row"><span class="legend-line" style="border-bottom-color:#ffa040"></span><span>100 km</span></div>
+            <div class="legend-row"><span class="legend-line" style="border-bottom-color:#ffe066"></span><span>200 km</span></div>
         </div>
 
     </div>
@@ -148,6 +147,7 @@
             <span id="play-icon">▶</span>
         </button>
         <button class="player-btn" id="btn-next" title="Próximo frame">⏭</button>
+        <button class="player-btn" id="btn-live" title="Visão Geral (Ao Vivo)" style="width: auto; padding: 0 12px; margin-left: 8px; font-weight: bold; background: rgba(59, 130, 246, 0.2); border-color: #3b82f6;">Ao Vivo</button>
     </div>
 
     <div class="player-speed">

@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\PLANB\\LightningViewer\\LightningViewer.Web\\wwwroot\\images\\logo.png",
+      "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
       "Id": "D:\\PLANB\\LightningViewer\\LightningViewer.Web\\wwwroot\\js\\map.js",
       "PackagePath": "staticwebassets\\js\\map.js"
     },

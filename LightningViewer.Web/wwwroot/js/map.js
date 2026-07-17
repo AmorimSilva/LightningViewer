@@ -19,10 +19,10 @@ const state = {
 
 // Radius config: colour and opacity per ring
 const RADII = [
-    { km: 30,  color: '#ffe066', fill: 0.05, stroke: 0.7, weight: 1.5 },
-    { km: 50,  color: '#ffa040', fill: 0.04, stroke: 0.6, weight: 1.5 },
-    { km: 100, color: '#ff6030', fill: 0.03, stroke: 0.55, weight: 1.5 },
-    { km: 200, color: '#cc2040', fill: 0.02, stroke: 0.5, weight: 1.5 },
+    { km: 30,  color: '#cc2040', fill: 0.05, stroke: 0.7, weight: 1.5 },
+    { km: 50,  color: '#ff6030', fill: 0.04, stroke: 0.6, weight: 1.5 },
+    { km: 100, color: '#ffa040', fill: 0.03, stroke: 0.55, weight: 1.5 },
+    { km: 200, color: '#ffe066', fill: 0.02, stroke: 0.5, weight: 1.5 },
 ];
 
 // ── Initialise ────────────────────────────────────────────────────────────────
@@ -272,9 +272,9 @@ window.renderFlashes = function renderFlashes(points) {
             radius:      3, // slightly smaller
             fillColor:   color, // filled with jet color
             color:       color,
-            weight:      1, // thin border
-            opacity:     0.8,
-            fillOpacity: 0.8,
+            weight:      0, // no border, pure fill
+            opacity:     1,
+            fillOpacity: 1,
             className:   'flash-marker',
         });
     });
@@ -284,13 +284,14 @@ window.renderFlashes = function renderFlashes(points) {
 
 /** Maps an intensity value (0–1) to an RGB colour (blue → cyan → yellow → orange → red). */
 function intensityColor(t) {
-    // Blue (low) → Cyan → Yellow → Orange → Red (high)
+    // Standard Jet colormap: Blue -> Cyan -> Green -> Yellow -> Red -> Dark Red
     const stops = [
-        [0.0,  [0, 0, 255]],      // Blue
-        [0.25, [0, 255, 255]],    // Cyan
-        [0.5,  [0, 255, 0]],      // Green
-        [0.75, [255, 255, 0]],    // Yellow
-        [1.0,  [255, 0, 0]],      // Red
+        [0.0,   [0, 0, 128]],     // Dark Blue
+        [0.125, [0, 0, 255]],     // Blue
+        [0.375, [0, 255, 255]],   // Cyan
+        [0.625, [255, 255, 0]],   // Yellow
+        [0.875, [255, 0, 0]],     // Red
+        [1.0,   [128, 0, 0]],     // Dark Red
     ];
     for (let i = 0; i < stops.length - 1; i++) {
         const [t0, c0] = stops[i];
@@ -303,7 +304,7 @@ function intensityColor(t) {
             return `rgb(${r},${g},${b})`;
         }
     }
-    return '#ff4060';
+    return '#ff0000';
 }
 
 // ── Helper Functions ──────────────────────────────────────────────────────────

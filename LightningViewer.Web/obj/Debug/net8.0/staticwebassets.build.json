@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qe4y3sZbM6V39VUrs62ts10QQ/xzji7yZ3l8A8XO3vU=",
+  "Hash": "kvPzhX6JKxaHEVOB9YRCQ4KouYjOtlQdaiaiZlJEwsQ=",
   "Source": "LightningViewer.Web",
   "BasePath": "_content/LightningViewer.Web",
   "Mode": "Default",
@@ -110,6 +110,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\PLANB\\LightningViewer\\LightningViewer.Web\\wwwroot\\images\\logo.png",
+      "SourceId": "LightningViewer.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\PLANB\\LightningViewer\\LightningViewer.Web\\wwwroot\\",
+      "BasePath": "_content/LightningViewer.Web",
+      "RelativePath": "images/logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\logo.png"
     },
     {
       "Identity": "D:\\PLANB\\LightningViewer\\LightningViewer.Web\\wwwroot\\js\\map.js",
